@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:web_bi/Template/widget/appbar_widget.dart';
 import 'package:web_bi/Template/widget/book_card.dart';
+import 'package:web_bi/Template/widget/book_item.dart';
 import 'package:web_bi/core/data/fake_data.dart';
 import 'package:web_bi/core/models/book.dart';
 
@@ -10,6 +11,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final myController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree.
+    // This also removes the _printLatestValue listener.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +32,51 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         children: <Widget>[
           Container(
-            height: 250,
+            color: Colors.blue,
+            height: 90,
+            child: Container(
+              height: 90,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(90.0),
+                    bottomRight: Radius.circular(90.0)),
+              ),
+              padding:
+                  const EdgeInsets.only(right: 30.0, left: 30.0, top: 12.0),
+              child: TextField(
+                enabled: true, //
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color(0xFFF2F2F2),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    size: 30,
+                  ),
+                  hintText: 'Tìm kiếm',
+                  border: new OutlineInputBorder(
+                    borderRadius: new BorderRadius.circular(70.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(70.0)),
+                    borderSide: BorderSide(width: 1, color: Colors.blue),
+                  ),
+                ),
+                controller: myController,
+                onChanged: (text) {
+                  print("First text field: $text");
+                },
+              ),
+            ),
+          ),
+          Container(
+            height: 300,
+            padding: EdgeInsets.only(top: 12.0),
             decoration: BoxDecoration(
                 color: Colors.blue,
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(40),
-                )),
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
             child: Column(
               children: <Widget>[
                 Row(
@@ -38,7 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 22.0, vertical: 6.0),
                             child: Text('Top truyện xem nhiều',
-                                style: TextStyle(color: Colors.blue))),
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w500))),
                       ),
                     ),
                     SizedBox(
@@ -47,9 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.0),
+                  padding: EdgeInsets.only(left: 5.0),
                   child: Container(
-                      height: 210,
+                      height: 240,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: books.length,
@@ -62,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: BookCard(
                                 img: _book.urlThumnail,
                                 book: _book,
-                                sizeWidth: 160,
+                                sizeWidth: 190,
                               ),
                             );
                           })),
@@ -72,6 +128,44 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(
             height: 20,
+          ),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.blue, width: 1),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10))),
+                  child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 22.0, vertical: 6.0),
+                      child: Text('Top truyện xem nhiều',
+                          style: TextStyle(color: Colors.blue))),
+                ),
+              ],
+            ),
+          ),
+          ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: books.length,
+            itemBuilder: (BuildContext context, int index) {
+              Book _book = books[index];
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                child: BookListItem(
+                  img: _book.urlThumnail,
+                  title: _book.name,
+                  author: _book.author,
+                  book: _book,
+                ),
+              );
+            },
           ),
         ],
       ),

@@ -15,12 +15,15 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0.0,
-      title: Text('Book'),
+      title: Text(
+        'Book',
+        style: TextStyle(color: Colors.blue),
+      ),
       actions: <Widget>[
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0),
           child: IconButton(
-              icon: Icon(Icons.search),
+              icon: Icon(Icons.account_circle),
               onPressed: () {
                 print('button search');
               }),
@@ -28,7 +31,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0),
           child: IconButton(
-              icon: Icon(Icons.account_circle),
+              icon: Icon(Icons.more_vert),
               onPressed: () {
                 print('button search');
               }),

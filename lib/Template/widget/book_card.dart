@@ -34,7 +34,7 @@ class BookCard extends StatelessWidget {
               ),
               child: Container(
                 constraints: new BoxConstraints.expand(
-                  height: 220.0,
+                  height: 240.0,
                 ),
                 alignment: Alignment.bottomLeft,
                 padding: new EdgeInsets.only(left: 16.0, bottom: 8.0),

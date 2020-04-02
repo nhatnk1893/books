@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:web_bi/Template/screen/main.dart';
 import 'package:web_bi/Template/screen/splash.dart';
 
 void main() {
@@ -11,7 +10,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'WEB-BI',
-      home: MainScreen(),
+      home: SplashScreen(),
+      theme: ThemeData(
+        primaryColor: Colors.white,
+      ),
     );
   }
 }
