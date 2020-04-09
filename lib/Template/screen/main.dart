@@ -1,5 +1,9 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:web_bi/Template/screen/home.dart';
+import 'package:web_bi/core/models/tab.dart';
+
+import '../../core/data/fake_data.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -7,64 +11,33 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  PageController _pageController;
-  int _page = 0;
-
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () => null,
+    return DefaultTabController(
+        length: tabs.length,
         child: Scaffold(
-            body: PageView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: _pageController,
-              onPageChanged: onPageChanged,
-              children: <Widget>[HomeScreen()],
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              selectedItemColor: Theme.of(context).accentColor,
-              unselectedItemColor: Colors.grey[500],
-              elevation: 20,
-              type: BottomNavigationBarType.fixed,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  title: SizedBox(),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.library_books),
-                  title: SizedBox(),
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.message),
-                  title: SizedBox(),
-                ),
-              ],
-              onTap: navigationTapped,
-              currentIndex: _page,
-            )));
-  }
-
-  void navigationTapped(int page) {
-    _pageController.jumpToPage(page);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: 0);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _pageController.dispose();
-  }
-
-  void onPageChanged(int page) {
-    setState(() {
-      this._page = page;
-    });
+          appBar: AppBar(
+            title: Text('Ello English'),
+            actions: <Widget>[
+              IconButton(icon: Icon(FeatherIcons.sun), onPressed: () {})
+            ],
+            bottom: TabBar(
+                isScrollable: true,
+                indicatorColor: Colors.pinkAccent,
+                tabs: tabs
+                    .map((TabChoice tab) => Tab(
+                          text: tab.title,
+                        ))
+                    .toList()),
+          ),
+          drawer: Drawer(),
+          body: TabBarView(children: [
+            HomeScreen(),
+            HomeScreen(),
+            HomeScreen(),
+            HomeScreen(),
+            HomeScreen()
+          ]),
+        ));
   }
 }

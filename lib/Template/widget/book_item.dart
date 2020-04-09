@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:web_bi/Template/screen/detail.dart';
 import 'package:web_bi/core/models/book.dart';
 
 class BookListItem extends StatelessWidget {
@@ -19,9 +21,21 @@ class BookListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          PageTransition(
+            type: PageTransitionType.rightToLeft,
+            child: Detail(
+              img: img,
+              author: author,
+              title: title,
+            ),
+          ),
+        );
+      },
       child: Container(
-        height: 140,
+        height: 100,
         child: new Material(
           color: Colors.white,
           elevation: 10.0,
@@ -31,12 +45,12 @@ class BookListItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: 120,
-                height: 140,
+                width: 140,
+                height: 100,
                 child: ClipRRect(
                     child: Container(
                   constraints: new BoxConstraints.expand(
-                    height: 180.0,
+                    height: 100.0,
                   ),
                   alignment: Alignment.bottomLeft,
                   padding: new EdgeInsets.only(left: 16.0, bottom: 8.0),
@@ -62,26 +76,13 @@ class BookListItem extends StatelessWidget {
                         child: Text(
                           title,
                           style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 20.0),
+                              fontWeight: FontWeight.w300, fontSize: 18.0),
                         ),
                         padding: EdgeInsets.only(top: 8.0),
                       ),
                       Divider(),
                       Text(
-                        'Special Thanks To: Mike Nguyen',
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        title,
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        title,
-                        style: TextStyle(fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        title,
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        author,
                       ),
                     ],
                   ),

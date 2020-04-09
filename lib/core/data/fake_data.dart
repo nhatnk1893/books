@@ -1,5 +1,6 @@
 import 'package:web_bi/core/models/book.dart';
 import 'package:web_bi/core/models/category.dart';
+import 'package:web_bi/core/models/tab.dart';
 
 List<Book> books = [
   Book(1, "Tiên Nghịch", "assets/images/img1.jpg", "Nhĩ Căn"),
